@@ -1,4 +1,4 @@
-#!/bin/bash
+	#!/bin/bash
 
 # Copyright (c) 2020, lowkey digital studio
 # Author: Nathan Wolek
@@ -23,19 +23,20 @@ do
 	# Example of default format from stat - Apr  6 04:00:00 2020
 	# Example of desired format - 2020-04-06-04-00-00-UTC
 
+	echo $file
 	format='%F-%H-%M-%S-UTC'
-	birthdate=$(stat -f "%SB" -t $format $file)
+	birthdate=$(stat -c "%y" $file)
 
 	# copy the original sound file and give it a new birthdate name
 
-	cp $file output/$birthdate.wav
+	cp $file "output/$birthdate.WAV"
 
 	# apply old attributes to the new file
 
-	touch -r $file output/$birthdate.wav
+	touch -r $file "output/$birthdate.WAV"
 
 	# touch one more time to update the modification date
 
-	touch output/$birthdate.wav
+#	touch output/$birthdate.WAV
 
 done

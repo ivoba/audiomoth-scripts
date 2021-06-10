@@ -17,7 +17,7 @@ do
 	without_path="${file##*/}"
 	
 	# use conditionals to make wav extension case insensitive
-	if [[ $without_path == *.wav ]] || [[ $without_path == *.WAV ]]; then
+	if [[ "$without_path" == *.wav ]] || [[ "$without_path" == *.WAV ]]; then
 	
 		# strip the extension
 		without_extension="${without_path%.*}"

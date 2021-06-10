@@ -11,8 +11,8 @@
 # expected output single .mp4 for entire .wav file
 
 # some examples of text for locations and gps coordinates I have been using
-beresfordtext="Lake Beresford, Florida"
-canaveraltext="Canaveral National Seashore, Florida"
+beresfordtext="Kloster Burbach, Hürth"
+canaveraltext="Kloster Burbach, Hürth"
 gpsdock="29.001019, -81.355588"
 gpswood="29.000200, -81.354673"
 gpspost14="28.894215, -80.808166"
@@ -28,10 +28,10 @@ do
 	
 	# strip out the filename without extension
 	without_path="${file##*/}"
-	without_extension="${without_path%.wav}"
+	without_extension="${without_path%.WAV}"
 	
 	# interpret the filename as a timestamp 
-	timestamp_at_recording=$(TZ=UTC date -j -f "%Y-%m-%d-%H-%M-%S-UTC" "$without_extension" +%s)
+	timestamp_at_recording=$(TZ=UTC date -d $without_extension +"%Y%m%d-%H%M%S"S +"%s")
 	
 	echo ""
 	echo "Starting movie for $without_path..."
@@ -53,7 +53,7 @@ do
 		convert "$without_extension$png_suffix".png -background black -gravity north -extent 1280x720 "$without_extension$png_suffix".png
 		
 		# add text to the bottom of the .png image
-		date_text=$(date -j -f "%s" $timestamp_at_recording)
+		date_text=$(date -f "%s" $timestamp_at_recording)
 		convert "$without_extension$png_suffix".png -gravity south -fill white -pointsize 36 -annotate +0+10 "$location_text ($gps_text)\n$date_text" "$without_extension-slide$png_suffix".png
 		
 		# update variables for next 30 second segment
